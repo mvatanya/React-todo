@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import './App.css';
 
 class Todo extends Component {
   constructor(props){
     super(props);
     this.state = {
       task: this.props.task,
-      isEditing: false
+      isEditing: false,
+      isCompleted: false
     };
   }
 
@@ -20,6 +22,10 @@ class Todo extends Component {
   handleChange = (evt) => {
     this.setState({ [evt.target.name]: evt.target.value})
   }
+
+  toggleComplete = () => {
+    this.setState({isCompleted: !this.state.isCompleted})
+  }
   
   handleUpdate = (evt) => {
     evt.preventDefault();
@@ -30,7 +36,7 @@ class Todo extends Component {
   render(){
     let result = (
       <div>
-        <li>{this.props.task}</li>
+        <li onClick={this.toggleComplete} className={this.state.isCompleted ? "completed":""}>{this.props.task}</li>
         <button onClick={this.handleEdit}>Edit</button>
         <button onClick={this.handleDelete}>X</button>
       </div>
